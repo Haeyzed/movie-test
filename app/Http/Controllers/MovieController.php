@@ -22,9 +22,9 @@ class MovieController extends Controller
      * Display a listing of the resource.
      *
      * @param ListMoviesRequest $request The request object containing search and pagination parameters.
-     * @return JsonResponse A paginated list of movies.
+     * @return MovieResource|JsonResponse A paginated list of movies.
      */
-    public function index(ListMoviesRequest $request): JsonResponse
+    public function index(ListMoviesRequest $request): MovieResource|JsonResponse
     {
         $movies = Movie::query()
             ->when($request->input('search'), function ($query) use ($request) {
@@ -41,9 +41,9 @@ class MovieController extends Controller
      * Handles multiple photo uploads for a movie.
      *
      * @param MovieRequest $request The request object with validated data.
-     * @return JsonResponse The created movie resource.
+     * @return MovieResource|JsonResponse The created movie resource.
      */
-    public function store(MovieRequest $request): JsonResponse
+    public function store(MovieRequest $request): MovieResource|JsonResponse
     {
         $data = $request->validated();
 
@@ -62,9 +62,9 @@ class MovieController extends Controller
      * Retrieves a single movie along with its associated photos.
      *
      * @param Movie $movie The movie instance to retrieve.
-     * @return JsonResponse The retrieved movie resource.
+     * @return MovieResource|JsonResponse The retrieved movie resource.
      */
-    public function show(Movie $movie): JsonResponse
+    public function show(Movie $movie): MovieResource|JsonResponse
     {
         return response()->success(new MovieResource($movie), 'Movie retrieved successfully');
     }
@@ -76,9 +76,9 @@ class MovieController extends Controller
      *
      * @param MovieRequest $request The request object with validated data.
      * @param Movie $movie The movie instance to update.
-     * @return JsonResponse The updated movie resource.
+     * @return MovieResource|JsonResponse The updated movie resource.
      */
-    public function update(MovieRequest $request, Movie $movie): JsonResponse
+    public function update(MovieRequest $request, Movie $movie): MovieResource|JsonResponse
     {
         $data = $request->validated();
 
